@@ -1,9 +1,14 @@
 server:
   port: 8181
-  context-path: "/activiti-app"
-liquibase:
-  enabled: false
-
+  context-path: /activiti-app
 spring:
   freemarker:
     check-template-location: false
+  jpa:
+    properties:
+      hibernate:
+        cache:
+          use_second_level_cache: false
+# 禁用liquibase（用于数据库重构和迁移的开源工具）
+liquibase:
+  enabled: false

@@ -2,8 +2,11 @@ package org.activiti.ui.app;
 
 import org.activiti.app.conf.ApplicationConfiguration;
 import org.activiti.app.servlet.ApiDispatcherServletConfiguration;
+import org.activiti.app.servlet.AppDispatcherServletConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
@@ -44,7 +47,7 @@ public class Application extends SpringBootServletInitializer {
     public ServletRegistrationBean appDispatcher() {
         DispatcherServlet app = new DispatcherServlet();
         app.setContextClass(AnnotationConfigWebApplicationContext.class);
-        app.setContextConfigLocation(ApiDispatcherServletConfiguration.class.getName());
+        app.setContextConfigLocation(AppDispatcherServletConfiguration.class.getName());
 
         ServletRegistrationBean registrationBean = new ServletRegistrationBean();
         registrationBean.setServlet(app);

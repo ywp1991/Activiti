@@ -190,13 +190,13 @@ public class DatabaseConfiguration {
   }
 
   @Bean(name = "transactionManager")
-  public PlatformTransactionManager annotationDrivenTransactionManager() {
+  public PlatformTransactionManager annotationDrivenTransactionManager(EntityManagerFactory entityManagerFactory) {
     JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
-    jpaTransactionManager.setEntityManagerFactory(entityManagerFactory());
+    jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
     return jpaTransactionManager;
   }
 
-  @Bean(name = "liquibase")
+//  @Bean(name = "liquibase")
   public Liquibase liquibase() {
     log.info("Configuring Liquibase");
     
@@ -221,8 +221,8 @@ public class DatabaseConfiguration {
   }
 
   @Bean
-  public TransactionTemplate transactionTemplate() {
-    return new TransactionTemplate(annotationDrivenTransactionManager());
+  public TransactionTemplate transactionTemplate(EntityManagerFactory entityManagerFactory) {
+    return new TransactionTemplate(annotationDrivenTransactionManager(entityManagerFactory));
   }
 
 }
