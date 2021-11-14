@@ -9,6 +9,9 @@ spring:
       hibernate:
         cache:
           use_second_level_cache: false
+  activiti:
+    check-process-definitions: false
 # 禁用liquibase（用于数据库重构和迁移的开源工具）
 liquibase:
   enabled: false
+
