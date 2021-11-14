@@ -39,6 +39,7 @@ import org.springframework.security.web.authentication.rememberme.RememberMeAuth
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * Custom implementation of Spring Security's RememberMeServices.
@@ -183,8 +184,13 @@ public class CustomPersistentRememberMeServices extends AbstractRememberMeServic
 
     PersistentToken token = persistentTokenService.getPersistentToken(presentedSeries);
 
-    if (token == null) {
-      // No series match, so we can't authenticate using this cookie
+    try {
+      if (token == null || token.getTokenValue() == null) {
+        // No series match, so we can't authenticate using this cookie
+        throw new RememberMeAuthenticationException("No persistent token found for series id: " + presentedSeries);
+      }
+    } catch (Exception e){
+      e.printStackTrace();
       throw new RememberMeAuthenticationException("No persistent token found for series id: " + presentedSeries);
     }
 
